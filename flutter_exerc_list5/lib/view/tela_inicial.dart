@@ -65,8 +65,7 @@ class _TelaInicialState extends State<TelaInicial> {
   _mostrarImagem(){
     telaController.confirmaRetorna();
     _salva = telaController.retorno;
-    print(_salva);
-    if (_image == null && inicio == '') {
+    if (_image == null && _salva == '' && inicio == true) {
       return Text('Escolha uma foto');
     } else if(inicio == true && _salva == ''){
       inicio = false;
@@ -76,5 +75,6 @@ class _TelaInicialState extends State<TelaInicial> {
       _image = Image.memory(verif);
       return _image;
     }
+    
   }
 }
