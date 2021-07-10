@@ -14,7 +14,6 @@ class TelaController {
     string.foto = valor;
     SharedPreferences salva = await SharedPreferences.getInstance();
     salva.setString('Salva', string.foto);
-    print(valor);
   }
 
   Future<void> confirmaRetorna() async{

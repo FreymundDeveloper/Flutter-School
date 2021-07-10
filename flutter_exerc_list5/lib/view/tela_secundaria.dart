@@ -28,7 +28,7 @@ class _TelaSecundariaState extends State<TelaSecundaria> {
         children: [
           Container(
             child: Center(
-              child: _image == null ? Text('aperta') : _image,
+              child: _image == null ? Text('Nenhuma foto') : _image,
             ),
           ),
           Container(child: ElevatedButton(
