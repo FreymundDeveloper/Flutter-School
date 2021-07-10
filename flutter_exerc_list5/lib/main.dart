@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exerc_list5/telas/tela_inicial.dart';
+import 'package:flutter_exerc_list5/view/tela_inicial.dart';
 
 
 void main() {
