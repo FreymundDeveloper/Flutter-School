@@ -19,7 +19,7 @@ class Controller {
     });
   }
 
-  Future<void> cadastrar(fotoStr, latitude, longitude, data) async {
+  Future<void> cadastrar(fotoStr, String latitude, String longitude, String data) async {
     Foto foto = Foto(fotoStr, tituloController.text, comentarioController.text, latitude, longitude, data);
     return await repository.insert(foto).then((value) {
       //fotoController.clear();

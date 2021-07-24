@@ -1,6 +1,6 @@
 class Foto {
   int? id;
-  String? foto;
+  dynamic foto;
   String? titulo;
   String? comentario;
   String? latitude;

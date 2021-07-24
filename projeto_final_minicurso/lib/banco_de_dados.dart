@@ -5,7 +5,7 @@ class BancoDeDados {
   Database? db;
 
   final String onCreateSQL =
-      'create table fotos(id INTEGER PRIMARY KEY AUTOINCREMENT,foto TEXT,titulo TEXT,comentario TEXT,latitude TEXT,longitude TEXT,data TEXT);';
+      'create table galeria6(id INTEGER PRIMARY KEY AUTOINCREMENT,foto BLOB,titulo TEXT,comentario TEXT,latitude TEXT,longitude TEXT,data TEXT);';
 
   onCreateFunction(Database db, int version) {
     db.execute(onCreateSQL);
@@ -14,7 +14,7 @@ class BancoDeDados {
   Future<void> openDb() async {
     if (db == null)
       return await getDatabasesPath().then((value) async {
-        String path = value += 'album.db';
+        String path = value += 'album_fotos6.db';
         await openDatabase(
           path,
           version: 1,

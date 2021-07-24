@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:location/location.dart';
 import 'package:projeto_final_minicurso/banco_de_dados.dart';
 import 'package:projeto_final_minicurso/controller/controller.dart';
+import 'package:projeto_final_minicurso/view/tela_de_cadastro.dart';
 import 'package:projeto_final_minicurso/view/tela_de_visualizacao.dart';
 
 
@@ -13,6 +18,9 @@ class TelaInicial extends StatefulWidget {
 class _TelaInicialState extends State<TelaInicial> {
   Controller controller = Controller();
   bool loading = true;
+  LocationData? local;
+  String _fotoTirada = '';
+  ImagePicker picker = ImagePicker();
 
   @override
   void initState() {
@@ -41,8 +49,18 @@ class _TelaInicialState extends State<TelaInicial> {
           )
           : _listaExistente(), 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext c) {return TelaDeCadastro();} ));
+        onPressed: () async{
+          final fotoDaCamera = await picker.getImage(source: ImageSource.camera, imageQuality: 25, maxHeight: 1024, maxWidth: 1024);
+          final bytes = await fotoDaCamera!.readAsBytes();
+          _fotoTirada = base64.encode(bytes);
+
+          await Location.instance.getLocation().then((value) {local=value;});
+
+          if (_fotoTirada != '') {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext c) {
+              return TelaDeCadastro(_fotoTirada,'${local!.latitude!.toStringAsFixed(4)}','${local!.longitude!.toStringAsFixed(4)}');
+            } ));
+          }
         },
         child: Icon(Icons.add),
       ),
@@ -78,11 +96,11 @@ class _TelaInicialState extends State<TelaInicial> {
     return ListTile(
       title: Text(controller.fotos[index].titulo!),
         subtitle: Text(
-          '${controller.fotos[index].latitude!} - ${controller.fotos[index].longitude!}\n${controller.fotos[index].data!}'
+          'Latitude:${controller.fotos[index].latitude!} -/- Longitude:${controller.fotos[index].longitude!}\nData:${controller.fotos[index].data!}'
         ), isThreeLine: true,
-        onTap: (){
+        onTap: () {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext c) {return TelaDeVisualizacao(index);} ));
         },
     );
-  }
+  }  
 }

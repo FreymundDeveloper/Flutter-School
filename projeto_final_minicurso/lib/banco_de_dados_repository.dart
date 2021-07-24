@@ -4,7 +4,7 @@ import 'package:projeto_final_minicurso/models/foto.dart';
 class FotosRepository {
   Future<List<Foto>> selectAll() async {
     List<Foto> fotos = [];
-    await BancoDeDados().db!.rawQuery('select * from fotos').then((value){
+    await BancoDeDados().db!.rawQuery('select * from galeria6').then((value){
       value.forEach((element) {
         fotos.add(Foto.fromMap(element));
       });
@@ -15,7 +15,7 @@ class FotosRepository {
   Future<void> insert(Foto fotos) async {
     await BancoDeDados().db!
         .rawInsert(
-          'insert into fotos (foto, titulo, comentario, latitude, longitude, data) values (?,?,?,?,?,?);', [
+          'insert into galeria6 (foto, titulo, comentario, latitude, longitude, data) values (?,?,?,?,?,?);', [
             fotos.foto, fotos.titulo, fotos.comentario, fotos.latitude, fotos.longitude, fotos.data
           ]);
     return;
@@ -24,7 +24,7 @@ class FotosRepository {
   Future<void> update(Foto fotos) async {
     await BancoDeDados().db!
         .rawUpdate(
-          'update fotos set foto = ?, titulo = ?, comentario = ?, latitude = ?, longitude = ?, data = ?, where id = ?', [
+          'update galeria6 set foto = ?, titulo = ?, comentario = ?, latitude = ?, longitude = ?, data = ?, where id = ?', [
             fotos.foto, fotos.titulo, fotos.comentario, fotos.latitude, fotos.longitude, fotos.data, fotos.id
           ]);
     return;
@@ -33,7 +33,7 @@ class FotosRepository {
   Future<void> delete(Foto fotos) async {
     await BancoDeDados().db!
         .rawDelete(
-          'delete from fotos where id = ?;', [fotos.id]);
+          'delete from galeria6 where id = ?;', [fotos.id]);
     return;
   }
 }
