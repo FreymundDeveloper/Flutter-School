@@ -51,8 +51,14 @@ class _TelaInicialState extends State<TelaInicial> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
           final fotoDaCamera = await picker.getImage(source: ImageSource.camera, imageQuality: 25, maxHeight: 1024, maxWidth: 1024);
-          final bytes = await fotoDaCamera!.readAsBytes();
+          if (fotoDaCamera != null) {
+            final bytes = await fotoDaCamera.readAsBytes();
           _fotoTirada = base64.encode(bytes);
+
+          await Location.instance.getLocation().then((value) {local=value;});
+          }
+          //final bytes = await fotoDaCamera!.readAsBytes();
+          //_fotoTirada = base64.encode(bytes);
 
           await Location.instance.getLocation().then((value) {local=value;});
 
